@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Dia das Mães!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #b30000; /* fundo vermelho */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      perspective: 1200px;
+      overflow: hidden;
+    }
+
+    .box-container {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+    }
+
+    .gift-box {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #2f2f2f, #1f1f1f);
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    .gift-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 100%;
+      background-color: #8b4513; /* fita marrom */
+      z-index: 1;
+    }
+
+    .gift-box::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 20px;
+      background-color: #8b4513;
+      z-index: 1;
+    }
+
+    .ribbon-bow {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 40px;
+      background: radial-gradient(circle at center, #a0522d, #5c2e00);
+      border-radius: 40% 40% 50% 50%;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .gift-lid {
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(145deg, #2f2f2f, #1f1f1f);
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 12px 12px 0 0;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
+      transition: transform 1s ease, top 1s ease;
+      z-index: 4;
+      transform-origin: bottom center;
+    }
+
+    .message {
+      position: absolute;
+      top: 220px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      text-align: center;
+      display: none;
+      z-index: 5;
+    }
+
+    .message h2 {
+      font-family: "Brush Script MT", cursive;
+      color: deeppink;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .message p {
+      color: #333333;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .message img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .opened .gift-lid {
+      top: -100px;
+      transform: rotateX(140deg);
+    }
+
+    .opened .message {
+      display: block;
+    }
+
+    /* CORAÇÕES */
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 24px;
+      animation: floatHeart 4s ease-in infinite;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="box-container" onclick="openGift()">
+  <div class="gift-lid"></div>
+  <div class="gift-box">
+    <div class="ribbon-bow"></div>
+  </div>
+  <div class="message">
+    <h2>Feliz Dia das Mães!</h2>
+    <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
+    <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu e Gabriel ❤</p>
+    <img src="./A.jpg" alt="Foto do Espaço Buddha Spa">
+  </div>
+</div>
+
+<audio id="giftSound" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/08/01/audio_894b004f26.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  function openGift() {
+    const box = document.querySelector('.box-container');
+    const sound = document.getElementById('giftSound');
+    if (!box.classList.contains('opened')) {
+      box.classList.add('opened');
+      sound.play();
+      createHearts();
+    }
+  }
+
+  function createHearts() {
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = (Math.random() * 100 + 200) + 'px';
+      heart.style.fontSize = (16 + Math.random() * 24) + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+  }
+</script>
+
+</body>
+</html>
