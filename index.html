@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: white;
+      background-color: #ffffff;
       background-image: url('pixelada.png');
       background-size: cover;
       background-position: center;
@@ -14,9 +14,16 @@
       height: 100vh;
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: background 1s ease;
+      transition: background-color 1s, background-image 1s;
+    }
+
+    h3.instructions {
+      margin-bottom: 10px;
+      color: #cc0000;
+      font-size: 20px;
     }
 
     .box-container {
@@ -25,13 +32,14 @@
       height: 240px;
       cursor: pointer;
       z-index: 2;
+      transform: translateY(-10%);
     }
 
     .gift-box {
       width: 100%;
       height: 100%;
-      background-color: #cc0000; /* vermelho */
-      border: 4px solid #FFD700; /* amarelo */
+      background-color: #cc0000;
+      border: 4px solid #FFD700;
       border-radius: 12px;
       position: relative;
       transition: transform 1s ease-in-out;
@@ -50,7 +58,7 @@
     .gift-lid {
       width: 100%;
       height: 40%;
-      background-color: #cc0000; /* tampa vermelha */
+      background-color: #cc0000;
       position: absolute;
       top: 0;
       left: 0;
@@ -62,11 +70,11 @@
     .gift-lid::before {
       content: '';
       position: absolute;
-      top: 5px;
+      top: 0;
       left: 45%;
       width: 10%;
-      height: 90%;
-      background-color: #FFD700; /* laço vertical */
+      height: 100%;
+      background-color: #FFD700;
     }
 
     .gift-lid::after {
@@ -76,158 +84,11 @@
       left: 0;
       width: 100%;
       height: 10%;
-      background-color: #FFD700; /* laço horizontal */
+      background-color: #FFD700;
     }
 
     .message {
       position: absolute;
       top: 260px;
       left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      background-color: #ffffff;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      display: none;
-      z-index: 4;
-      color: #333;
-    }
-
-    .message h2 {
-      font-family: "Brush Script MT", cursive;
-      color: deeppink;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .message p {
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    .message img {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-
-    .opened .gift-lid {
-      top: -60px;
-      transform: rotate(-20deg);
-    }
-
-    .opened .message {
-      display: block;
-    }
-
-    .hearts {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .heart {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background-color: red;
-      transform: rotate(45deg);
-      animation: rise 6s linear forwards;
-      opacity: 0.8;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background-color: red;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -15px;
-      left: 0;
-    }
-
-    .heart::after {
-      top: 0;
-      left: -15px;
-    }
-
-    @keyframes rise {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh) rotate(45deg);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<audio id="fairy-sound" src="fairy.mp3" preload="auto"></audio>
-
-<div class="box-container" onclick="openGift()">
-  <div class="gift-lid"></div>
-  <div class="gift-box"></div>
-  <div class="message">
-    <h2>Feliz Dia das Mães!</h2>
-    <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
-    <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu e Gabriel ❤</p>
-    <img src="A.jpg" alt="Foto do Espaço Buddha Spa">
-  </div>
-</div>
-
-<div class="hearts"></div>
-
-<script>
-  function openGift() {
-    const box = document.querySelector('.box-container');
-    const audio = document.getElementById('fairy-sound');
-    const body = document.body;
-
-    if (!box.classList.contains('opened')) {
-      box.classList.add('opened');
-      audio.play();
-
-      // Fundo branco
-      body.style.backgroundImage = 'none';
-      body.style.backgroundColor = '#ffffff';
-
-      // Corações subindo
-      showHearts();
-    }
-  }
-
-  function showHearts() {
-    const heartsContainer = document.querySelector('.hearts');
-
-    for (let i = 0; i < 30; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.bottom = '-30px';
-      heart.style.animationDelay = Math.random() * 2 + 's';
-      heartsContainer.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
-    }
-  }
-</script>
-
-</body>
-</html>
+      transform: translateX
