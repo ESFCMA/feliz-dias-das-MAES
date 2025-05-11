@@ -8,15 +8,12 @@
       margin: 0;
       padding: 0;
       height: 100vh;
+      background-color: white;
       font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: white;
-      background-image: url('imagem-pixelada.jpg'); /* Substitua pelo nome da imagem pixelada */
-      background-size: cover;
-      background-position: center;
-      transition: background 0.8s ease;
+      overflow: hidden;
     }
 
     .box-container {
@@ -92,51 +89,57 @@
       transform: translateY(-50%);
     }
 
-    .message {
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
-      text-align: center;
-      display: none;
-      z-index: 3;
-    }
-
-    .message h2 {
-      font-family: "Brush Script MT", cursive;
-      color: deeppink;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .message p {
-      color: #333333;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    .message img {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-
     .opened .gift-lid {
       top: -60px;
       transform: rotateX(60deg);
     }
 
-    .opened .message {
-      display: block;
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: deeppink;
+      transform: rotate(45deg);
+      animation: floatUp 3s ease-in-out infinite;
     }
 
-    .opened body {
-      background: black;
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: deeppink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .hearts-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
   </style>
 </head>
@@ -148,24 +151,33 @@
       <div class="ribbon-vertical"></div>
       <div class="ribbon-horizontal"></div>
     </div>
-    <div class="message">
-      <h2>Feliz Dia das Mães!</h2>
-      <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
-      <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu e Gabriel ❤</p>
-      <img src="A_2D_digital_illustration_features_a_Mother's_Day-.png" alt="Ilustração do Dia das Mães">
-    </div>
+    <div class="hearts-container" id="hearts-container"></div>
   </div>
 
-  <audio id="sparkle-sound" src="sparkle.mp3" preload="auto"></audio>
+  <audio id="fairy-sound" src="fairy.mp3" preload="auto"></audio>
 
   <script>
     function openGift() {
       const box = document.querySelector('.box-container');
-      const audio = document.getElementById('sparkle-sound');
-      document.body.style.background = 'black';
-      document.body.style.backgroundImage = 'none';
-      box.classList.add('opened');
-      audio.play();
+      const audio = document.getElementById('fairy-sound');
+      if (!box.classList.contains('opened')) {
+        box.classList.add('opened');
+        audio.play();
+        showHearts();
+      }
+    }
+
+    function showHearts() {
+      const container = document.getElementById('hearts-container');
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.top = `${100 + Math.random() * 20}px`;
+        heart.style.animationDuration = `${2 + Math.random() * 2}s`;
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
     }
   </script>
 
