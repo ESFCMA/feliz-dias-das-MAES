@@ -5,11 +5,15 @@
   <title>Feliz Dia das Mães!</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #c90000 url("A_2D_digital_illustration_features_a_Mother's_Day-.png") no-repeat center center fixed;
-      background-size: cover;
       margin: 0;
+      padding: 0;
       height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #b30000;
+      background-image: url("A_2D_digital_illustration_features_a_Mother's_Day-.png");
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: overlay;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -26,70 +30,65 @@
     .gift-box {
       width: 100%;
       height: 100%;
-      background: white;
+      background-color: #fff;
       border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      transform-style: preserve-3d;
       transition: transform 1s ease;
+      overflow: hidden;
+    }
+
+    .ribbon-vertical, .ribbon-horizontal {
+      position: absolute;
+      background-color: #cc0000;
+    }
+
+    .ribbon-vertical {
+      width: 12px;
+      height: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .ribbon-horizontal {
+      width: 100%;
+      height: 12px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .gift-lid {
+      position: absolute;
       width: 100%;
       height: 40%;
-      background: white;
-      border-bottom: 5px solid #a52a2a;
-      position: absolute;
+      background-color: #fff;
+      border-radius: 10px 10px 0 0;
       top: 0;
       left: 0;
-      border-radius: 10px 10px 0 0;
       z-index: 2;
       transition: transform 0.8s ease, top 0.8s ease;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     }
 
     .gift-lid::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 50%;
-      width: 10%;
+      width: 12px;
       height: 100%;
-      background-color: #a52a2a;
-      transform: translateX(-50%);
-    }
-
-    .message {
-      position: absolute;
-      top: 100px;
       left: 50%;
+      top: 0;
+      background-color: #cc0000;
       transform: translateX(-50%);
-      width: 280px;
-      background-color: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      display: none;
-      z-index: 3;
     }
 
-    .message h2 {
-      font-family: "Brush Script MT", cursive;
-      color: deeppink;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .message p {
-      color: #333;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    .message img {
+    .gift-lid::after {
+      content: '';
+      position: absolute;
+      height: 12px;
       width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
+      top: 50%;
+      background-color: #cc0000;
+      transform: translateY(-50%);
     }
 
     .opened .gift-lid {
@@ -97,8 +96,27 @@
       transform: rotateX(60deg);
     }
 
-    .opened .message {
+    .revealed-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 300px;
+      max-height: 300px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 5;
+    }
+
+    .opened .revealed-image {
       display: block;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
     }
   </style>
 </head>
@@ -106,24 +124,18 @@
 
   <div class="box-container" onclick="openGift()">
     <div class="gift-lid"></div>
-    <div class="gift-box"></div>
-    <div class="message">
-      <h2>Feliz Dia das Mães!</h2>
-      <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
-      <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu e Gabriel ❤</p>
-      <img src="./A.jpg" alt="Foto do Espaço Buddha Spa">
+    <div class="gift-box">
+      <div class="ribbon-vertical"></div>
+      <div class="ribbon-horizontal"></div>
     </div>
+    <img class="revealed-image" src="A_2D_digital_illustration_features_a_Mother's_Day-.png" alt="Mensagem Visual">
   </div>
-
-  <audio id="openSound" src="open-sound.mp3" preload="auto"></audio>
 
   <script>
     function openGift() {
       const box = document.querySelector('.box-container');
-      const sound = document.getElementById('openSound');
       if (!box.classList.contains('opened')) {
         box.classList.add('opened');
-        sound.play();
       }
     }
   </script>
