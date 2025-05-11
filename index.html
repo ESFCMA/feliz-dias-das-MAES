@@ -7,7 +7,7 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #ffffff;
-      background-image: url('pixelada.png');
+      background-image: url('pixelada.png'); /* imagem pixelada */
       background-size: cover;
       background-position: center;
       margin: 0;
@@ -17,13 +17,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: background-color 1s, background-image 1s;
+      transition: background 1s ease;
     }
 
     h3.instructions {
       margin-bottom: 10px;
       color: #cc0000;
       font-size: 20px;
+      z-index: 3;
     }
 
     .box-container {
@@ -32,14 +33,14 @@
       height: 240px;
       cursor: pointer;
       z-index: 2;
-      transform: translateY(-10%);
+      transform: translateY(-5%);
     }
 
     .gift-box {
       width: 100%;
       height: 100%;
-      background-color: #cc0000;
-      border: 4px solid #FFD700;
+      background-color: #cc0000; /* Caixa vermelha */
+      border: 4px solid #FFD700; /* Laço amarelo */
       border-radius: 12px;
       position: relative;
       transition: transform 1s ease-in-out;
@@ -52,13 +53,13 @@
       left: 45%;
       width: 10%;
       height: 100%;
-      background-color: #FFD700;
+      background-color: #FFD700; /* fita vertical */
     }
 
     .gift-lid {
       width: 100%;
       height: 40%;
-      background-color: #cc0000;
+      background-color: #cc0000; /* Tampa vermelha */
       position: absolute;
       top: 0;
       left: 0;
@@ -74,7 +75,7 @@
       left: 45%;
       width: 10%;
       height: 100%;
-      background-color: #FFD700;
+      background-color: #FFD700; /* fita vertical na tampa */
     }
 
     .gift-lid::after {
@@ -84,7 +85,7 @@
       left: 0;
       width: 100%;
       height: 10%;
-      background-color: #FFD700;
+      background-color: #FFD700; /* fita horizontal */
     }
 
     .message {
@@ -203,7 +204,7 @@
     <h2>Feliz Dia das Mães!</h2>
     <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
     <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu, Gabriel, Moana e Amora ❤</p>
-    <img src="A.jpg" alt="Foto do Espaço Buddha Spa">
+    <img src="A.jpg" alt="Foto do Presente Especial">
   </div>
 </div>
 
