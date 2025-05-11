@@ -7,7 +7,7 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #ffffff;
-      background-image: url('pixelada.png'); /* imagem pixelada de fundo */
+      background-image: url('pixelada.png'); /* fundo inicial */
       background-size: cover;
       background-position: center;
       margin: 0;
@@ -16,7 +16,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 1s;
+      transition: background-color 1s, background-image 1s;
     }
 
     .box-container {
@@ -31,7 +31,7 @@
       width: 100%;
       height: 100%;
       background-color: #cc0000; /* vermelho */
-      border: 4px solid #FFD700; /* amarelo ouro */
+      border: 4px solid #FFD700; /* amarelo */
       border-radius: 12px;
       position: relative;
       transition: transform 1s ease-in-out;
@@ -44,13 +44,13 @@
       left: 45%;
       width: 10%;
       height: 100%;
-      background-color: #FFD700; /* laço amarelo */
+      background-color: #FFD700;
     }
 
     .gift-lid {
       width: 100%;
       height: 40%;
-      background-color: #FFD700; /* amarelo */
+      background-color: #cc0000; /* tampa vermelha */
       position: absolute;
       top: 0;
       left: 0;
@@ -59,149 +59,19 @@
       z-index: 3;
     }
 
-    .message {
+    .gift-lid::before {
+      content: '';
       position: absolute;
-      top: 260px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 380px;
-      background-color: #000000;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      text-align: center;
-      display: none;
-      z-index: 4;
-      color: white;
-    }
-
-    .message h2 {
-      font-family: "Brush Script MT", cursive;
-      color: deeppink;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .message p {
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
-    .message img {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-
-    .opened .gift-lid {
-      top: -60px;
-      transform: rotate(-20deg);
-    }
-
-    .opened .message {
-      display: block;
-    }
-
-    .hearts {
-      position: fixed;
       top: 0;
-      left: 0;
-      width: 100%;
+      left: 45%;
+      width: 10%;
       height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
+      background-color: #FFD700; /* laço vertical */
     }
 
-    .heart {
+    .gift-lid::after {
+      content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      transform: rotate(45deg);
-      animation: float 5s linear infinite;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -10px;
+      top: 35%;
       left: 0;
-    }
-
-    .heart::after {
-      top: 0;
-      left: -10px;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(45deg);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<audio id="fairy-sound" src="fairy.mp3" preload="auto"></audio>
-
-<div class="box-container" onclick="openGift()">
-  <div class="gift-lid"></div>
-  <div class="gift-box"></div>
-  <div class="message">
-    <h2>Feliz Dia das Mães!</h2>
-    <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
-    <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu e Gabriel ❤</p>
-    <img src="A.jpg" alt="Foto do Espaço Buddha Spa">
-  </div>
-</div>
-
-<div class="hearts"></div>
-
-<script>
-  function openGift() {
-    const box = document.querySelector('.box-container');
-    const audio = document.getElementById('fairy-sound');
-    const body = document.body;
-
-    if (!box.classList.contains('opened')) {
-      box.classList.add('opened');
-      audio.play();
-      body.style.backgroundColor = "#000000";
-      body.style.backgroundImage = "none";
-      showHearts();
-    }
-  }
-
-  function showHearts() {
-    const heartsContainer = document.querySelector('.hearts');
-
-    for (let i = 0; i < 20; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDelay = Math.random() * 2 + 's';
-      heartsContainer.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
-    }
-  }
-</script>
-
-</body>
-</html>
+      width:
