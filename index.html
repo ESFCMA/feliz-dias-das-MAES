@@ -1,101 +1,118 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Feliz Dia das Mães!</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      overflow: hidden;
       background-color: #ffffff;
-      background-image: url("sua-imagem-pixelada-aqui.png");
+      background-image: url('pixelada.png');
       background-size: cover;
       background-position: center;
-      transition: background 1s ease;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 1s, background-image 1s;
+    }
+
+    h3.instructions {
+      margin-bottom: 10px;
+      color: #000000; /* Alterado para preto */
+      font-size: 20px;
     }
 
     .box-container {
-      position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+      position: relative;
+      width: 240px;
+      height: 240px;
       cursor: pointer;
-    }
-
-    .instruction {
-      font-size: 20px;
-      color: #cc0000;
-      font-weight: bold;
-      margin-bottom: 20px;
+      z-index: 2;
+      transform: translateY(-10%);
     }
 
     .gift-box {
-      width: 220px;
-      height: 220px;
+      width: 100%;
+      height: 100%;
       background-color: #cc0000;
-      border-radius: 10px;
-      border: 2px solid #aa0000;
+      border: 4px solid #FFD700;
+      border-radius: 12px;
       position: relative;
-      transition: transform 1s ease;
+      transition: transform 1s ease-in-out;
     }
 
     .gift-box::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 48%;
+      left: 45%;
       width: 10%;
       height: 100%;
-      background-color: #FFD700; /* faixa vertical */
+      background-color: #FFD700;
     }
 
     .gift-lid {
       width: 100%;
       height: 40%;
       background-color: #cc0000;
-      border-radius: 10px 10px 0 0;
       position: absolute;
       top: 0;
       left: 0;
-      transition: transform 0.8s ease, top 0.8s ease;
-      z-index: 2;
+      border-radius: 12px 12px 0 0;
+      transition: top 0.8s ease, transform 0.8s ease;
+      z-index: 3;
     }
 
     .gift-lid::before {
       content: '';
       position: absolute;
-      top: 40%;
+      top: 0;
+      left: 45%;
+      width: 10%;
+      height: 100%;
+      background-color: #FFD700;
+    }
+
+    .gift-lid::after {
+      content: '';
+      position: absolute;
+      top: 35%;
       left: 0;
       width: 100%;
-      height: 20%;
-      background-color: #FFD700; /* faixa horizontal do laço */
+      height: 10%;
+      background-color: #FFD700;
     }
 
     .message {
-      display: none;
       position: absolute;
-      top: 100%;
+      top: 260px;
       left: 50%;
       transform: translateX(-50%);
-      background: #ffffff;
+      width: 380px;
+      background-color: #ffffff;
       padding: 25px;
       border-radius: 15px;
-      width: 340px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      z-index: 3;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      display: none;
+      z-index: 4;
+      color: #333;
     }
 
     .message h2 {
       font-family: "Brush Script MT", cursive;
       color: deeppink;
-      font-size: 26px;
+      font-size: 28px;
+      margin-bottom: 10px;
     }
 
     .message p {
-      font-size: 16px;
-      color: #444;
+      font-size: 17px;
+      margin-bottom: 10px;
     }
 
     .message img {
@@ -118,15 +135,53 @@
       bottom: 0;
       left: 0;
       width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 4;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart, .sparkle, .magic-firework {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      animation: rise 6s linear forwards;
     }
 
     .heart {
+      background-color: red;
+      transform: rotate(45deg);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
       position: absolute;
-      font-size: 20px;
-      color: red;
-      animation: rise 5s linear forwards;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -15px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -15px;
+    }
+
+    .sparkle {
+      background-image: radial-gradient(white 40%, transparent 41%);
+      background-size: cover;
+    }
+
+    .magic-firework {
+      background-color: red;
+      border-radius: 50%;
+      box-shadow: 0 0 10px red;
     }
 
     @keyframes rise {
@@ -134,77 +189,117 @@
         transform: translateY(0) scale(1);
         opacity: 1;
       }
+      80% {
+        opacity: 1;
+      }
       100% {
-        transform: translateY(-100vh) scale(1.5);
+        transform: translateY(-120vh) scale(1.5);
         opacity: 0;
       }
     }
-
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      animation: rise 5s linear forwards;
-    }
-
   </style>
 </head>
 <body>
 
+<audio id="fairy-sound" src="fairy.mp3" preload="auto"></audio>
+
+<h3 class="instructions">Clique na caixa!</h3>
+
 <div class="box-container" onclick="openGift()">
-  <div class="instruction">Clique na caixa!</div>
   <div class="gift-lid"></div>
   <div class="gift-box"></div>
   <div class="message">
     <h2>Feliz Dia das Mães!</h2>
     <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
     <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu, Gabriel, Moana e Amora ❤</p>
-    <img src="IMAGEM_REVELADA.png" alt="Foto da família">
+    <img src="A.jpg" alt="Foto do Espaço Buddha Spa">
   </div>
 </div>
 
 <div class="hearts"></div>
 <div class="sparkles"></div>
-<audio id="magicSound" src="magic.mp3" preload="auto"></audio>
 
 <script>
   function openGift() {
-    document.body.style.background = "#ffffff";
-    document.querySelector('.box-container').classList.add('opened');
-    document.getElementById("magicSound").play();
-    launchHearts();
-    showSparkles();
+    const box = document.querySelector('.box-container');
+    const audio = document.getElementById('fairy-sound');
+    const body = document.body;
+
+    if (!box.classList.contains('opened')) {
+      box.classList.add('opened');
+      audio.play();
+      body.style.backgroundColor = "#ffffff";
+      body.style.backgroundImage = "none";
+      showHearts();
+      showSparkles();
+      showFireworks();
+    }
   }
 
-  function launchHearts() {
+  function showHearts() {
     const heartsContainer = document.querySelector('.hearts');
     for (let i = 0; i < 20; i++) {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      heart.innerText = '❤';
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDelay = Math.random() * 1 + 's';
+      heart.style.bottom = '-30px';
+      heart.style.animationDelay = Math.random() * 2 + 's';
       heartsContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+      setTimeout(() => heart.remove(), 6000);
     }
   }
 
   function showSparkles() {
     const sparklesContainer = document.querySelector('.sparkles');
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
       sparkle.style.left = Math.random() * 100 + 'vw';
       sparkle.style.bottom = '-30px';
-      const size = Math.random() * 12 + 8;
-      sparkle.style.width = size + 'px';
-      sparkle.style.height = size + 'px';
-      sparkle.style.background = `radial-gradient(circle, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0) 70%)`;
-      sparkle.style.opacity = 0.8;
-      sparkle.style.boxShadow = `0 0 10px rgba(255,255,200,0.8), 0 0 20px rgba(255,255,150,0.5)`;
+      sparkle.style.width = sparkle.style.height = (Math.random() * 10 + 10) + 'px';
       sparkle.style.animationDelay = Math.random() * 2 + 's';
-      sparkle.style.borderRadius = '50%';
       sparklesContainer.appendChild(sparkle);
       setTimeout(() => sparkle.remove(), 6000);
+    }
+  }
+
+  function showFireworks() {
+    const sparklesContainer = document.querySelector('.sparkles');
+    for (let i = 0; i < 15; i++) {
+      const firework = document.createElement('div');
+      firework.className = 'magic-firework';
+      firework.style.left = Math.random() * 100 + 'vw';
+      firework.style.bottom = '-30px';
+      firework.style.width = firework.style.height = (Math.random() * 15 + 10) + 'px';
+      firework.style.animationDelay = Math.random() * 2 + 's';
+
+      // Evento de explosão mágica
+      firework.addEventListener('animationend', () => {
+        const explosion = document.createElement('div');
+        explosion.style.position = 'absolute';
+        explosion.style.left = firework.style.left;
+        explosion.style.top = '10px';
+        explosion.style.width = '25px';
+        explosion.style.height = '25px';
+        explosion.style.borderRadius = '50%';
+        explosion.style.background = 'radial-gradient(circle, rgba(255,255,0,1) 0%, rgba(255,255,0,0.3) 60%)';
+        explosion.style.boxShadow = '0 0 15px yellow, 0 0 30px gold';
+        explosion.style.opacity = '1';
+        explosion.style.transform = 'scale(1)';
+        explosion.style.transition = 'all 0.5s ease-out';
+
+        sparklesContainer.appendChild(explosion);
+
+        setTimeout(() => {
+          explosion.style.opacity = '0';
+          explosion.style.transform = 'scale(3)';
+        }, 50);
+
+        setTimeout(() => explosion.remove(), 800);
+      });
+
+      sparklesContainer.appendChild(firework);
+      setTimeout(() => firework.remove(), 6000);
     }
   }
 </script>
