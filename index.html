@@ -10,10 +10,6 @@
       height: 100vh;
       font-family: Arial, sans-serif;
       background-color: #b30000;
-      background-image: url("A_2D_digital_illustration_features_a_Mother's_Day-.png");
-      background-size: cover;
-      background-position: center;
-      background-blend-mode: overlay;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -30,7 +26,7 @@
     .gift-box {
       width: 100%;
       height: 100%;
-      background-color: #fff;
+      background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       position: relative;
@@ -61,7 +57,7 @@
       position: absolute;
       width: 100%;
       height: 40%;
-      background-color: #fff;
+      background-color: #ffffff;
       border-radius: 10px 10px 0 0;
       top: 0;
       left: 0;
@@ -131,11 +127,15 @@
     <img class="revealed-image" src="A_2D_digital_illustration_features_a_Mother's_Day-.png" alt="Mensagem Visual">
   </div>
 
+  <audio id="sparkle-sound" src="sparkle.mp3" preload="auto"></audio>
+
   <script>
     function openGift() {
       const box = document.querySelector('.box-container');
+      const audio = document.getElementById('sparkle-sound');
       if (!box.classList.contains('opened')) {
         box.classList.add('opened');
+        audio.play();
       }
     }
   </script>
