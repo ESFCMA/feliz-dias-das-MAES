@@ -9,10 +9,14 @@
       padding: 0;
       height: 100vh;
       font-family: Arial, sans-serif;
-      background-color: #b30000;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: white;
+      background-image: url('imagem-pixelada.jpg'); /* Substitua pelo nome da imagem pixelada */
+      background-size: cover;
+      background-position: center;
+      transition: background 0.8s ease;
     }
 
     .box-container {
@@ -21,12 +25,13 @@
       height: 240px;
       cursor: pointer;
       perspective: 1000px;
+      z-index: 2;
     }
 
     .gift-box {
       width: 100%;
       height: 100%;
-      background-color: #ffffff;
+      background-color: #cc0000; /* vermelho */
       border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       position: relative;
@@ -36,7 +41,7 @@
 
     .ribbon-vertical, .ribbon-horizontal {
       position: absolute;
-      background-color: #cc0000;
+      background-color: #FFD700; /* amarelo ouro */
     }
 
     .ribbon-vertical {
@@ -57,7 +62,7 @@
       position: absolute;
       width: 100%;
       height: 40%;
-      background-color: #ffffff;
+      background-color: #cc0000;
       border-radius: 10px 10px 0 0;
       top: 0;
       left: 0;
@@ -73,7 +78,7 @@
       height: 100%;
       left: 50%;
       top: 0;
-      background-color: #cc0000;
+      background-color: #FFD700;
       transform: translateX(-50%);
     }
 
@@ -83,8 +88,42 @@
       height: 12px;
       width: 100%;
       top: 50%;
-      background-color: #cc0000;
+      background-color: #FFD700;
       transform: translateY(-50%);
+    }
+
+    .message {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      display: none;
+      z-index: 3;
+    }
+
+    .message h2 {
+      font-family: "Brush Script MT", cursive;
+      color: deeppink;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .message p {
+      color: #333333;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .message img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
     }
 
     .opened .gift-lid {
@@ -92,27 +131,12 @@
       transform: rotateX(60deg);
     }
 
-    .revealed-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 300px;
-      max-height: 300px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      display: none;
-      z-index: 5;
-    }
-
-    .opened .revealed-image {
+    .opened .message {
       display: block;
-      animation: fadeIn 1s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -40%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
+    .opened body {
+      background: black;
     }
   </style>
 </head>
@@ -124,7 +148,12 @@
       <div class="ribbon-vertical"></div>
       <div class="ribbon-horizontal"></div>
     </div>
-    <img class="revealed-image" src="A_2D_digital_illustration_features_a_Mother's_Day-.png" alt="Mensagem Visual">
+    <div class="message">
+      <h2>Feliz Dia das Mães!</h2>
+      <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
+      <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu e Gabriel ❤</p>
+      <img src="A_2D_digital_illustration_features_a_Mother's_Day-.png" alt="Ilustração do Dia das Mães">
+    </div>
   </div>
 
   <audio id="sparkle-sound" src="sparkle.mp3" preload="auto"></audio>
@@ -133,10 +162,10 @@
     function openGift() {
       const box = document.querySelector('.box-container');
       const audio = document.getElementById('sparkle-sound');
-      if (!box.classList.contains('opened')) {
-        box.classList.add('opened');
-        audio.play();
-      }
+      document.body.style.background = 'black';
+      document.body.style.backgroundImage = 'none';
+      box.classList.add('opened');
+      audio.play();
     }
   </script>
 
