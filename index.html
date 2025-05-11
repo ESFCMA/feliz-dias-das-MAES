@@ -91,4 +91,168 @@
       position: absolute;
       top: 260px;
       left: 50%;
-      transform: translateX
+      transform: translateX(-50%);
+      width: 380px;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      display: none;
+      z-index: 4;
+      color: #333;
+    }
+
+    .message h2 {
+      font-family: "Brush Script MT", cursive;
+      color: deeppink;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .message p {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .message img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .opened .gift-lid {
+      top: -60px;
+      transform: rotate(-20deg);
+    }
+
+    .opened .message {
+      display: block;
+    }
+
+    .hearts, .sparkles {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart, .sparkle {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      animation: rise 6s linear forwards;
+    }
+
+    .heart {
+      background-color: red;
+      transform: rotate(45deg);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -15px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -15px;
+    }
+
+    .sparkle {
+      background-image: radial-gradient(white 40%, transparent 41%);
+      background-size: cover;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="fairy-sound" src="fairy.mp3" preload="auto"></audio>
+
+<h3 class="instructions">Clique na caixa!</h3>
+
+<div class="box-container" onclick="openGift()">
+  <div class="gift-lid"></div>
+  <div class="gift-box"></div>
+  <div class="message">
+    <h2>Feliz Dia das Mães!</h2>
+    <p>Para esse dia especial, seus filhos lhe presenteiam com um dia exclusivo no Buddha Spa.</p>
+    <p>Te amamos muito! Aproveite esse momento - Rebeca, Raquel, Dudu, Gabriel, Moana e Amora ❤</p>
+    <img src="A.jpg" alt="Foto do Espaço Buddha Spa">
+  </div>
+</div>
+
+<div class="hearts"></div>
+<div class="sparkles"></div>
+
+<script>
+  function openGift() {
+    const box = document.querySelector('.box-container');
+    const audio = document.getElementById('fairy-sound');
+    const body = document.body;
+
+    if (!box.classList.contains('opened')) {
+      box.classList.add('opened');
+      audio.play();
+      body.style.backgroundColor = "#ffffff";
+      body.style.backgroundImage = "none";
+      showHearts();
+      showSparkles();
+    }
+  }
+
+  function showHearts() {
+    const heartsContainer = document.querySelector('.hearts');
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '-30px';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+  }
+
+  function showSparkles() {
+    const sparklesContainer = document.querySelector('.sparkles');
+    for (let i = 0; i < 20; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.bottom = '-30px';
+      sparkle.style.width = sparkle.style.height = (Math.random() * 10 + 10) + 'px';
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      sparklesContainer.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 6000);
+    }
+  }
+</script>
+
+</body>
+</html>
